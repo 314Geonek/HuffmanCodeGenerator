@@ -4,18 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 
 import com.google.android.material.textfield.TextInputEditText;
-
-import org.w3c.dom.Node;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -28,28 +21,30 @@ import de.blox.treeview.TreeNode;
 import de.blox.treeview.TreeView;
 
 public class MainActivity extends AppCompatActivity {
-    private String userText;
-    private List<Root> root;
-    private double entropy;
-    private TreeView huffmanTree;
-   // private Map<String, String> fullCodes, lettersCodes;
-    private AppCompatTextView entropiaResult;
+
+    private AppCompatTextView translatedTextView;
+    private AppCompatTextView entropyTextView;
     private TextInputEditText inputTextField;
-    private AppCompatTextView translatedText;
-    private TableLayout tableLayout;
+    private AppCompatTextView keyWordResult;
+    private TreeView huffmanTree;
     private ListView listView;
-    private ArrayList<Root> arrayList;
+    private ArrayList<Node> nodeArrayList;
     private Map<Character, String> codedLetters;
     private RowAdapter rowAdapter;
+    private List<Node> node;
     private BaseTreeAdapter treeAdapter;
+    private String userText;
+    private double entropy;
+    private double keyWordLength;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         inputTextField = findViewById(R.id.inputText);
-        entropiaResult = findViewById(R.id.entropiaResult);
-        tableLayout = findViewById(R.id.lettersTable);
-        translatedText = findViewById(R.id.translatedText);
+        entropyTextView = findViewById(R.id.entropyResult);
+        keyWordResult = findViewById(R.id.keyWOrdResult);
+        translatedTextView = findViewById(R.id.translatedText);
         listView = findViewById(R.id.listView);
         huffmanTree = findViewById(R.id.tree);
         treeAdapter = new BaseTreeAdapter<TreeViewHolder>(this, R.layout.node) {
@@ -68,19 +63,19 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void calculateHuffman(View view) {
-        arrayList=new ArrayList<>();
+        nodeArrayList =new ArrayList<>();
         listView.setAdapter(null);
-        entropiaResult.setText("");
+        entropyTextView.setText("");
         userText = inputTextField.getText().toString();
         if(userText.length()>0)
         calcCharactersList();
         codedLetters = new HashMap<>();
     }
     private void calcCharactersList()
-    {   root = new ArrayList<>();
+    {   node= new ArrayList<>();
         for(int i=0;i<userText.length();i++)
         {   boolean wasOccurred = false;
-            for (Root m:root)
+            for (Node m: node)
             {
                 wasOccurred = m.getLetter()==userText.charAt(i);
                 if(wasOccurred)
@@ -90,18 +85,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             if(!wasOccurred)
-                root.add(new Root(userText.charAt(i)));
+                node.add(new Node(userText.charAt(i)));
         }
-        arrayList= new ArrayList<>();
+        nodeArrayList = new ArrayList<>();
         calcEntropy();
         treeMaker();
         codedLetters = new HashMap<>();
-        TreeNode father = new TreeNode(root.get(0).getLetter()!=0 ? root.get(0).getLetter() +"\n1" : root.get(0).getCounter());
-        calcHuffman(root.get(0), "", father);
-        rowAdapter = new RowAdapter(this, arrayList);
+        TreeNode father = new TreeNode(node.get(0).getLetter()!=0 ? node.get(0).getLetter() +"\n1" : node.get(0).getCounter());
+        calcHuffman(node.get(0), "", father);
+        rowAdapter = new RowAdapter(this, nodeArrayList);
         treeAdapter.setRootNode(father);
         listView.setAdapter(rowAdapter);
         translateText();
+        calcKeyWordLength();
     }
     private void translateText()
     {   String translatedTextt="";
@@ -109,10 +105,10 @@ public class MainActivity extends AppCompatActivity {
         {
             translatedTextt = translatedTextt.concat(codedLetters.get(userText.charAt(i)));
         }
-        translatedText.setText("Tekst w kodzie Huffmana: ".concat(translatedTextt));
+        translatedTextView.setText("Tekst w kodzie Huffmana: ".concat(translatedTextt));
 
     }
-    private void calcHuffman(Root node, final String code, TreeNode fatherNode)
+    private void calcHuffman(Node node, final String code, TreeNode fatherNode)
     {   TreeNode left, right;
         if(node.getNodeLeft()!=null)
         {
@@ -131,42 +127,52 @@ public class MainActivity extends AppCompatActivity {
         else if(node.getNodeLeft()==null) {
             node.setHuffmanCode(code.length()>0? code : "1");
             codedLetters.put(node.getLetter(),code.length()>0 ? code : "1");
-            arrayList.add(node);
+            nodeArrayList.add(node);
         }
     }
 
 
 
     private void treeMaker() {
-        Root left, right;
-        while (root.size()>1){
+        Node left, right;
+        while (node.size()>1){
             left = findTheSmallestInList();
             right = findTheSmallestInList();
-            root.add(new Root(left, right));
+            node.add(new Node(left, right));
         }}
 
-    private Root findTheSmallestInList()
+    private Node findTheSmallestInList()
     {   int index=0;
-        Root newNode = root.get(0);
-        for (int i=1; i<root.size();i++) {
-            if(newNode.getCounter() > root.get(i).getCounter())
+        Node newNode = node.get(0);
+        for (int i = 1; i< node.size(); i++) {
+            if(newNode.getCounter() > node.get(i).getCounter())
             {
-                newNode= root.get(i);
+                newNode= node.get(i);
                 index=i;
             }
         }
-        root.remove(index);
+        node.remove(index);
         return newNode;
     }
 
     private void calcEntropy()
     {
         entropy=0;
-        root.forEach((tmp)->{
+        node.forEach((tmp)->{
             double p = tmp.getCounter()/(double)userText.length();
             entropy += p * (Math.log(1.0/p) / Math.log(2));
         });
         DecimalFormat df = new DecimalFormat("#.#####");
-        entropiaResult.setText(getText(R.string.entropia).toString().concat(df.format(entropy)));
+        entropyTextView.setText(getText(R.string.entropia).toString().concat(df.format(entropy)));
+    }
+    private void calcKeyWordLength()
+    {   int mI=0;
+        keyWordLength=0;
+        nodeArrayList.forEach((tmp)->{
+            double p = tmp.getCounter()/(double)userText.length();
+            keyWordLength += p * tmp.getCounter()/userText.length() ;
+        });
+        DecimalFormat df = new DecimalFormat("#.#####");
+        keyWordResult.setText(getText(R.string.meanKeyWordLength).toString().concat(df.format(keyWordLength)));
     }
 }

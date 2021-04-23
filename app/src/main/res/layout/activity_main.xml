@@ -90,12 +90,18 @@
         android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/entropiaResult"
+        android:id="@+id/entropyResult"
         android:layout_width="match_parent"
         android:textSize="16sp"
         android:textColor="@color/white"
         android:layout_height="wrap_content" />
-
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/keyWOrdResult"
+        android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:text="@string/meanKeyWordLength"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content" />
 
         <de.blox.treeview.TreeView
             android:id="@+id/tree"

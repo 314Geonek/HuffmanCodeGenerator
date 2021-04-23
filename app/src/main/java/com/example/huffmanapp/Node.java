@@ -1,18 +1,18 @@
 package com.example.huffmanapp;
 
-public class Root {
+public class Node {
     private char letter;
     private int counter;
-    private Root nodeLeft, nodeRight;
+    private Node nodeLeft, nodeRight;
     private String huffmanCode;
 
-    public Root(char letter) {
+    public Node(char letter) {
         this.letter = letter;
         this.counter = 1;
         this.nodeLeft =null;
         this.nodeRight = null;
     }
-    public Root(Root left, Root right)
+    public Node(Node left, Node right)
     {
         nodeLeft=left;
         nodeRight=right;
@@ -34,10 +34,10 @@ public class Root {
     public void setCounter(int counter) {
         this.counter = counter;
     }
-    public Root getNodeLeft() {
+    public Node getNodeLeft() {
         return nodeLeft;
     }
-    public Root getNodeRight() {
+    public Node getNodeRight() {
         return nodeRight;
     }
 }

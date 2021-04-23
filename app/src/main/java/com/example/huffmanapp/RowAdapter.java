@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public class RowAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<Root> arrayList;
+    private ArrayList<Node> arrayList;
     private TextView ascii, letter, huffmanCode, counter;
-    public RowAdapter(Context context, ArrayList<Root> arrayList) {
+    public RowAdapter(Context context, ArrayList<Node> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }

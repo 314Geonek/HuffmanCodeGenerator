@@ -8,4 +8,5 @@
     <string name="kod_asci">Kod ASCI</string>
     <string name="kod_huffmana">Kod Huffmana</string>
     <string name="wyst_pienia">Wystąpienia</string>
+    <string name="meanKeyWordLength">Średnia długość słowa kluczowego</string>
 </resources>
