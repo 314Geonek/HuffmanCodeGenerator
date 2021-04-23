@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    android:background="#243035"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/inputText"
+        android:hint="@string/tu_wprowad_tekst_do_przet_umaczenia"
+        android:layout_width="match_parent"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:minHeight="100dp"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/licz_huffmana"
+        android:paddingHorizontal="20dp"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_style"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:onClick="calculateHuffman"/>
+    <TableLayout
+        android:id="@+id/lettersTable"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#7E57C2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/kod_asci"
+                android:layout_column="1"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/litera_znak"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+
+                android:layout_column="2"
+                android:gravity="center"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/wyst_pienia"
+                android:layout_column="3"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/kod_huffmana"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_column="4"
+                android:gravity="center"
+                android:layout_weight="1"/>
+        </TableRow>
+    </TableLayout>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/translatedText"
+        android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/entropiaResult"
+        android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content" />
+
+
+        <de.blox.treeview.TreeView
+            android:id="@+id/tree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+</LinearLayout>
