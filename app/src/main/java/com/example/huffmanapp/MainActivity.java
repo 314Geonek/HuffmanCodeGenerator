@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import de.blox.treeview.BaseTreeAdapter;
 import de.blox.treeview.TreeNode;
@@ -50,22 +51,6 @@ public class MainActivity extends AppCompatActivity {
         translatedTextView = findViewById(R.id.translatedText);
         listView = findViewById(R.id.listView);
         huffmanTree = findViewById(R.id.tree);
-        listView.setOnTouchListener((v, event) -> {
-            @SuppressLint("ClickableViewAccessibility") int action = event.getAction();
-            switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    // Disallow ScrollView to intercept touch events.
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                    break;
-
-                case MotionEvent.ACTION_UP:
-                    // Allow ScrollView to intercept touch events.
-                    v.getParent().requestDisallowInterceptTouchEvent(false);
-                    break;
-            }
-            v.onTouchEvent(event);
-            return true;
-        });
         treeAdapter = new BaseTreeAdapter<TreeViewHolder>(this, R.layout.node) {
             @NonNull
             @Override
@@ -82,12 +67,24 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility") int action = event.getAction();
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    // Disallow ScrollView to intercept touch events.
                     v.getParent().requestDisallowInterceptTouchEvent(true);
                     break;
 
                 case MotionEvent.ACTION_UP:
-                    // Allow ScrollView to intercept touch events.
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+            v.onTouchEvent(event);
+            return true;
+        });
+        listView.setOnTouchListener((v, event) -> {
+            @SuppressLint("ClickableViewAccessibility") int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    break;
+
+                case MotionEvent.ACTION_UP:
                     v.getParent().requestDisallowInterceptTouchEvent(false);
                     break;
             }
@@ -100,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
     public void calculateHuffman(View view) {
         nodeArrayList =new ArrayList<>();
         listView.setAdapter(null);
-        entropyTextView.setText("");
-        userText = inputTextField.getText().toString();
+        entropyTextView.setText(getString(R.string.entropia));
+        userText = Objects.requireNonNull(inputTextField.getText()).toString();
         if(userText.length()>0)
         calcCharactersList();
         codedLetters = new HashMap<>();
@@ -198,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             entropy += p * (Math.log(1.0/p) / Math.log(2));
         });
         DecimalFormat df = new DecimalFormat("#.#####");
-        entropyTextView.setText(getText(R.string.entropia).toString().concat(df.format(entropy)));
+        entropyTextView.setText(entropyTextView.getText().toString().concat(df.format(entropy)));
     }
     private void calcKeyWordLength()
     {   int mI=0;

@@ -2,11 +2,12 @@
     <string name="app_name">HuffmanApp</string>
     <string name="licz_huffmana">Licz Huffmana</string>
     <string name="tu_wprowad_tekst_do_przet_umaczenia">Tu wprowadź tekst do przetłumaczenia</string>
-    <string name="entropia">Entropia:</string>
+    <string name="entropia">Entropia: </string>
     <string name="translated_text">Translated Text</string>
     <string name="litera_znak">Litera/Znak</string>
     <string name="kod_asci">Kod ASCI</string>
     <string name="kod_huffmana">Kod Huffmana</string>
     <string name="wyst_pienia">Wystąpienia</string>
-    <string name="meanKeyWordLength">Średnia długość słowa kluczowego</string>
+    <string name="meanKeyWordLength">Średnia długość słowa kluczowego: </string>
+    <string name="drzewo">Drzewo:</string>
 </resources>
