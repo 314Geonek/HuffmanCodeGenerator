@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private double entropy;
     private double keyWordLength;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,22 @@ public class MainActivity extends AppCompatActivity {
         translatedTextView = findViewById(R.id.translatedText);
         listView = findViewById(R.id.listView);
         huffmanTree = findViewById(R.id.tree);
+        listView.setOnTouchListener((v, event) -> {
+            @SuppressLint("ClickableViewAccessibility") int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    // Disallow ScrollView to intercept touch events.
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                    // Allow ScrollView to intercept touch events.
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+            v.onTouchEvent(event);
+            return true;
+        });
         treeAdapter = new BaseTreeAdapter<TreeViewHolder>(this, R.layout.node) {
             @NonNull
             @Override
@@ -59,6 +78,22 @@ public class MainActivity extends AppCompatActivity {
             viewHolder.nodeCode.setText(data.toString()); }
         };
         huffmanTree.setAdapter(treeAdapter);
+        huffmanTree.setOnTouchListener((v, event) -> {
+            @SuppressLint("ClickableViewAccessibility") int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    // Disallow ScrollView to intercept touch events.
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                    // Allow ScrollView to intercept touch events.
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+            v.onTouchEvent(event);
+            return true;
+        });
     }
 
 
