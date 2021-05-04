@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             entropy += p * (Math.log(1.0/p) / Math.log(2));
         });
         DecimalFormat df = new DecimalFormat("#.#####");
-        entropyTextView.setText(entropyTextView.getText().toString().concat(df.format(entropy)));
+        entropyTextView.setText(entropyTextView.getText().toString().concat("\n").concat(df.format(entropy)));
     }
     private void calcKeyWordLength()
     {   int mI=0;
@@ -205,6 +205,11 @@ public class MainActivity extends AppCompatActivity {
             keyWordLength += p * tmp.getCounter()/userText.length() ;
         });
         DecimalFormat df = new DecimalFormat("#.#####");
-        keyWordResult.setText(getText(R.string.meanKeyWordLength).toString().concat(df.format(keyWordLength)));
+        keyWordResult.setText(getText(R.string.meanKeyWordLength).toString().concat("\n").concat(df.format(keyWordLength)));
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void sheSellsGenerateText(View view) {
+        inputTextField.setText("She sells seashells by the seashore, The shells she sells are seashells, I'm sure. So if she sells seashells on the seashore, Then I'm sure she sells seashore shells.");
     }
 }
