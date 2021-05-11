@@ -194,15 +194,15 @@ public class MainActivity extends AppCompatActivity {
             double p = tmp.getCounter()/(double)userText.length();
             entropy += p * (Math.log(1.0/p) / Math.log(2));
         });
-        DecimalFormat df = new DecimalFormat("#.#####");
+                DecimalFormat df = new DecimalFormat("#.#####");
         entropyTextView.setText(entropyTextView.getText().toString().concat("\n").concat(df.format(entropy)));
     }
     private void calcKeyWordLength()
-    {   int mI=0;
+    {
         keyWordLength=0;
         nodeArrayList.forEach((tmp)->{
             double p = tmp.getCounter()/(double)userText.length();
-            keyWordLength += p * tmp.getCounter()/userText.length() ;
+            keyWordLength += p * tmp.getHuffmanCode().length();
         });
         DecimalFormat df = new DecimalFormat("#.#####");
         keyWordResult.setText(getText(R.string.meanKeyWordLength).toString().concat("\n").concat(df.format(keyWordLength)));
