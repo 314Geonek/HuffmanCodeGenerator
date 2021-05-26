@@ -18,6 +18,33 @@
         android:layout_marginVertical="10dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/geonek"
+                android:textSize="16sp"
+                android:layout_marginHorizontal="10dp"
+                android:textColor="@color/white"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/button_style"
+                android:onClick="whoAmIgenerateText"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/she_sells"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/button_style"
+                android:onClick="sheSellsGenerateText"/>
+        </LinearLayout>
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/inputText"
         android:hint="@string/tu_wprowad_tekst_do_przet_umaczenia"
@@ -31,32 +58,18 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:minHeight="100dp"/>
-        <LinearLayout
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/licz_huffmana"
+            android:paddingHorizontal="10dp"
+            android:textSize="16sp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/licz_huffmana"
-                android:paddingHorizontal="10dp"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:background="@drawable/button_style"
-                android:layout_marginHorizontal="5dp"
-                android:onClick="calculateHuffman"/>
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/she_sells"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:paddingHorizontal="10dp"
-                android:background="@drawable/button_style"
-                android:onClick="sheSellsGenerateText"/>
-        </LinearLayout>
+            android:textColor="@color/white"
+            android:background="@drawable/button_style"
+            android:layout_marginHorizontal="5dp"
+            android:onClick="calculateHuffman"
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_marginVertical="10dp"
